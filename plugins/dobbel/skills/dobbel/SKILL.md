@@ -61,8 +61,9 @@ selv.
    eller brukerens ord, spør du.
 3. **Et kjøp er alltid konsekvens av et dokument.** `create_purchase`
    krever `fileId`. AI-forslaget fra `get_inbox_item` eller
-   `extract_purchase_document` er en kandidat: bekreft beløp, dato,
-   leverandør og MVA mot dokumentet før du oppretter noe.
+   `extract_purchase_document` er en kandidat: les dokumentet selv med
+   `get_file` og bekreft beløp, dato, leverandør og MVA mot det før du
+   oppretter noe.
 4. **Førsteklasses verktøy før fritt bilag.** `create_voucher` med egne
    linjer er siste utvei. Bilagsmal for gebyr, renter og overføringer;
    `create_purchase` for kjøp; `create_invoice` for salg;

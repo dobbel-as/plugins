@@ -15,46 +15,72 @@ Les `/dobbel:dobbel` først hvis du ikke har gjort det i denne samtalen.
 
 ## Uavhengighet
 
-- Bruk kun lesende verktøy: `get_*`, `list_*`, `search_vouchers`,
-  `get_bank_reconciliation`, `get_vat_report`, rapportene.
+- Bruk kun lesende verktøy: `review_period_evidence`, `get_file`,
+  `get_voucher`, `get_purchase`, `get_bank_reconciliation`,
+  `get_vat_report`, rapportene.
 - Ikke gjenbruk AI-forslaget fra `get_inbox_item` som fasit. Det er
-  kandidaten du kontrollerer. Les originaldokumentet selv.
+  kandidaten du kontrollerer. Les originaldokumentet selv med `get_file`.
 - Har en annen agent bokført i perioden, ikke les dens resonnement som
   kilde. Bilaget står på egne ben eller ikke.
 - Ingen vesentlighetsgrense med mindre brukeren har gitt deg én. Uten
   terskel er et avvik et avvik.
 
+Start rapporten med en isolasjonserklæring: hvilken periode og hvilket
+scope, at du bare har brukt lesende verktøy, og at ingen forslag fra
+første runde er lagt til grunn.
+
 ## 1. Avgrens og tell
 
-Bestem scope: periode og omfang (alt, bank eller kjøp). Hent registeret:
+Bestem scope: periode og omfang (alt, bank eller kjøp). Hent registeret
+med **ett** kall:
 
-- `search_vouchers` for perioden → alle bilag
-- `list_bank_transactions` for perioden → alle banklinjer
-- `list_inbox_items` → dokumenter i perioden, også ubehandlede
-- `list_purchases` for perioden
+- `review_period_evidence(companyId, from, to, scope?)` — hvert bilag,
+  kjøp, hver banklinje og hvert innbokselement i perioden, med `files`
+  bak hvert objekt, koblingene mellom dem, og `evidence` per bilag:
+  `document`, `system_generated`, `bank_statement_only` eller `none`.
+  Registeret inneholder ingen AI-forslag.
 
-Tell. Nevneren er antall objekter i scope. Rapporten skal ha nøyaktig så
-mange rader. Rekker du ikke alle, si det, og merk rapporten som
-`delvis gjennomgang` — aldri som ferdig.
+`total` er nevneren. Rapporten skal ha nøyaktig så mange rader. Er
+`truncated` satt på en samling, snevre inn perioden eller `scope` og
+kall igjen til alt er med. Rekker du ikke alle, si det, og merk
+rapporten som `delvis gjennomgang` — aldri som ferdig.
 
 ## 2. Sjekk per objekt
 
-For hvert **kjøp / bilag med dokument**:
+For hvert **kjøp / bilag med dokument** (`evidence: document`):
 
-- dokument finnes og er lesbart (`ledger_only` hvis det mangler)
-- dato, leverandør, totalbeløp, MVA-beløp og sats stemmer med dokumentet
+- `get_file(fileId)` → les dokumentet (lenken, eller bildet inline med
+  `includeContent: true`). Kan du ikke lese det, er objektet `ukjent`.
+- `get_voucher` → linjene. Dato, leverandør, totalbeløp, MVA-beløp og
+  sats stemmer med dokumentet
 - konto er rimelig for det dokumentet viser
 - MVA-kode stemmer med selskapets MVA-status og dokumentets sats
-- ingen dublett (samme leverandør, beløp og dato et annet sted)
+- ingen dublett (samme leverandør, beløp og dato et annet sted i
+  registeret)
 
-For hver **banklinje**:
+For bilag med `evidence: bank_statement_only`: banklinjen beviser
+bevegelsen, ikke formålet. Er kontering og MVA-fradrag likevel satt, er
+det `trenger deg` med mindre bilagsmalen (gebyr, renter, overføring)
+forklarer det.
 
-- bokført, venter på bilag, ignorert med begrunnelse, eller forklart
-- matchen gir mening: beløp og motpart stemmer med det den er koblet til
-- overføringer mellom egne kontoer er ikke ført som kostnad eller inntekt
+For bilag med `evidence: none`: `ledger_only`. Finnes det et
+førsteklasses verktøy som burde vært brukt i stedet? Er beskrivelsen
+forståelig? Uten dokument er det aldri `ok`.
 
-For **bilag uten dokument** (fritt bilag): finnes det et førsteklasses
-verktøy som burde vært brukt i stedet? Er beskrivelsen forståelig?
+For hver **banklinje** (`state`):
+
+- `matched`: matchen gir mening — beløp og motpart stemmer med det den
+  er koblet til (`matchedVoucherId` / `matchedPurchaseId` /
+  `matchedInvoiceId`)
+- `ignored_with_reason`: begrunnelsen forklarer faktisk linjen
+- `awaiting_document`: står som åpen oppgave — `trenger deg`
+- `unbooked`: ikke bokført — `feil` hvis perioden er ment lukket,
+  ellers `advarsel`
+- overføringer mellom egne kontoer (`isInternalTransfer`) er ikke ført
+  som kostnad eller inntekt
+
+For hvert **innbokselement**: er det behandlet (`voucherId`), avvist
+med grunn, eller ligger det fortsatt der mens perioden skal lukkes?
 
 Per felt noterer du proveniens: `bekreftet mot dokument`,
 `kun i regnskapet`, `støttet av banklinje`, `forklart av bruker`.

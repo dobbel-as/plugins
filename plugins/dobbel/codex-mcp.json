@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "dobbel": {
+      "url": "https://app.dobl.no/api/mcp"
+    }
+  }
+}

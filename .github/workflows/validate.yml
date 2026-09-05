@@ -1,0 +1,33 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: JSON er gyldig
+        run: |
+          for f in .claude-plugin/marketplace.json .agents/plugins/marketplace.json \
+                   plugins/dobbel/.claude-plugin/plugin.json plugins/dobbel/.codex-plugin/plugin.json \
+                   plugins/dobbel/.mcp.json plugins/dobbel/codex-mcp.json; do
+            python3 -m json.tool "$f" > /dev/null && echo "ok $f"
+          done
+      - name: Versjonene er like
+        run: |
+          v1=$(python3 -c "import json;print(json.load(open('plugins/dobbel/.claude-plugin/plugin.json'))['version'])")
+          v2=$(python3 -c "import json;print(json.load(open('plugins/dobbel/.codex-plugin/plugin.json'))['version'])")
+          v3=$(python3 -c "import json;print(json.load(open('.claude-plugin/marketplace.json'))['plugins'][0]['version'])")
+          test "$v1" = "$v2" -a "$v1" = "$v3" && echo "versjon $v1"
+      - name: Claude Code plugin-validering
+        run: |
+          npm install -g @anthropic-ai/claude-code
+          claude plugin validate --strict ./plugins/dobbel
+          claude plugin validate --strict .

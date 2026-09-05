@@ -1,0 +1,47 @@
+{
+  "name": "dobbel",
+  "version": "0.1.0",
+  "description": "Regnskap for små norske AS og holdingselskap. Les regnskapet, registrer kjøp fra kvitteringer, bokfør banken, hent rapporter og forbered MVA og årsoppgjør. Alt agenten fører blir utkast du godkjenner.",
+  "author": {
+    "name": "Dobbel AS",
+    "url": "https://dobl.no/"
+  },
+  "homepage": "https://app.dobl.no/agenter",
+  "repository": "https://github.com/dobbel-as/plugins",
+  "license": "Apache-2.0",
+  "keywords": [
+    "dobbel",
+    "regnskap",
+    "bokføring",
+    "accounting",
+    "bookkeeping",
+    "norway",
+    "mva",
+    "vat",
+    "bank-reconciliation",
+    "holdingselskap",
+    "mcp",
+    "ai-agent"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Dobbel",
+    "shortDescription": "Før regnskapet i Dobbel med din egen agent — du godkjenner.",
+    "longDescription": "Dobbel er et AI-først regnskapssystem for små norske aksjeselskap og holdingselskap: NS 4102-kontoplan, norsk MVA, SAF-T og innlevering til Altinn. Med pluginen kan agenten din lese regnskapet, registrere kjøp fra kvitteringer, bokføre banken, hente rapporter og forberede MVA-melding og årsoppgjør. Alt agenten fører blir utkast som du godkjenner i Dobbel, og hvert kall logges som en agent-handling.",
+    "developerName": "Dobbel AS",
+    "category": "Finance",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://dobl.no/",
+    "defaultPrompt": [
+      "Hva gjenstår i regnskapet mitt akkurat nå?",
+      "Registrer kvitteringene i denne mappen som kjøp i Dobbel.",
+      "Bokfør banktransaksjonene for forrige måned og si hva som mangler dokumentasjon."
+    ],
+    "brandColor": "#2A1B3D"
+  },
+  "mcpServers": "./codex-mcp.json"
+}

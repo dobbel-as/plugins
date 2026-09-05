@@ -1,0 +1,29 @@
+{
+  "name": "dobbel",
+  "displayName": "Dobbel",
+  "version": "0.1.0",
+  "description": "Regnskap for små norske AS og holdingselskap. Les regnskapet, registrer kjøp fra kvitteringer, bokfør banken, hent rapporter og forbered MVA og årsoppgjør. Alt agenten fører blir utkast du godkjenner.",
+  "author": {
+    "name": "Dobbel AS",
+    "url": "https://dobl.no/"
+  },
+  "homepage": "https://app.dobl.no/agenter",
+  "repository": "https://github.com/dobbel-as/plugins",
+  "license": "Apache-2.0",
+  "keywords": [
+    "dobbel",
+    "regnskap",
+    "bokføring",
+    "accounting",
+    "bookkeeping",
+    "norway",
+    "mva",
+    "vat",
+    "bank-reconciliation",
+    "holdingselskap",
+    "mcp",
+    "ai-agent"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json"
+}

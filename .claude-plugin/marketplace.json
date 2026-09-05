@@ -1,0 +1,41 @@
+{
+  "$schema": "https://code.claude.com/schemas/marketplace.json",
+  "name": "dobbel",
+  "owner": {
+    "name": "Dobbel AS",
+    "email": "hei@dobl.no",
+    "url": "https://github.com/dobbel-as"
+  },
+  "description": "Dobbel — AI-først regnskap for små norske AS og holdingselskap. Koble agenten din til regnskapet via MCP.",
+  "plugins": [
+    {
+      "name": "dobbel",
+      "displayName": "Dobbel",
+      "source": "./plugins/dobbel",
+      "description": "Les regnskapet, registrer kjøp fra kvitteringer, bokfør banken, hent rapporter og forbered MVA og årsoppgjør i Dobbel. Alt agenten fører blir utkast du godkjenner.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Dobbel AS",
+        "url": "https://dobl.no/"
+      },
+      "homepage": "https://app.dobl.no/agenter",
+      "repository": "https://github.com/dobbel-as/plugins",
+      "license": "Apache-2.0",
+      "category": "Finance",
+      "keywords": [
+        "dobbel",
+        "regnskap",
+        "bokføring",
+        "accounting",
+        "bookkeeping",
+        "norway",
+        "mva",
+        "vat",
+        "bank-reconciliation",
+        "holdingselskap",
+        "mcp",
+        "ai-agent"
+      ]
+    }
+  ]
+}

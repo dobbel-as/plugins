@@ -1,6 +1,6 @@
 {
   "name": "dobbel",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Regnskap for små norske AS og holdingselskap. Les regnskapet, registrer kjøp fra kvitteringer, bokfør banken, hent rapporter og forbered MVA og årsoppgjør. Alt agenten fører blir utkast du godkjenner.",
   "author": {
     "name": "Dobbel AS",

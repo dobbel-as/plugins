@@ -1,6 +1,6 @@
 {
   "name": "dobbel",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Regnskap for små norske AS og holdingselskap. Les regnskapet, registrer kjøp fra kvitteringer, bokfør banken, hent rapporter og forbered MVA og årsoppgjør. Alt agenten fører blir utkast du godkjenner.",
   "author": {
     "name": "Dobbel AS",
@@ -36,12 +36,16 @@
       "Write"
     ],
     "websiteURL": "https://dobl.no/",
+    "privacyPolicyURL": "https://dobl.no/personvern",
+    "termsOfServiceURL": "https://dobl.no/vilkar",
     "defaultPrompt": [
       "Hva gjenstår i regnskapet mitt akkurat nå?",
       "Registrer kvitteringene i denne mappen som kjøp i Dobbel.",
       "Bokfør banktransaksjonene for forrige måned og si hva som mangler dokumentasjon."
     ],
-    "brandColor": "#2A1B3D"
+    "brandColor": "#2A1B3D",
+    "composerIcon": "./assets/composer-icon.png",
+    "logo": "./assets/logo.png"
   },
   "mcpServers": "./codex-mcp.json"
 }

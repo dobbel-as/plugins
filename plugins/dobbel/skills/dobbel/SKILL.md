@@ -80,6 +80,11 @@ selv.
    behandling er uklar.
 9. **Alt du gjør logges** med `actor_type = agent`. Skriv beskrivelser et
    menneske forstår i hovedboken senere.
+10. **Slå opp i hjelpen framfor å gjette på hvordan Dobbel virker.**
+    `search_help` søker i hjelpesenteret og gir deg hele artikler
+    tilbake. Spør i hel setning — søket er laget for spørsmål, ikke
+    stikkord. Får du `treff: 0`, er emnet ikke dokumentert ennå: si det
+    til brukeren i stedet for å finne på et svar.
 
 ## Formater
 

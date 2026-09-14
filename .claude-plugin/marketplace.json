@@ -13,7 +13,7 @@
       "displayName": "Dobbel",
       "source": "./plugins/dobbel",
       "description": "Les regnskapet, registrer kjøp fra kvitteringer, bokfør banken, hent rapporter og forbered MVA og årsoppgjør i Dobbel. Alt agenten fører blir utkast du godkjenner.",
-      "version": "0.2.1",
+      "version": "0.2.2",
       "author": {
         "name": "Dobbel AS",
         "url": "https://dobl.no/"
